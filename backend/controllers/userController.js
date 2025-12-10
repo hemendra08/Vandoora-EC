@@ -1,5 +1,7 @@
 import { User } from "../models/userModel.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { verifyEmail } from "../emailVerify/verifyEmail.js";
 
 export const register = async (req, res) => {
     try {
@@ -27,6 +29,11 @@ export const register = async (req, res) => {
             email,
             password: hashedPassword
         })
+
+        const token = jwt.sign({ id: newUser._id }, process.env.SECRET_KEY, { expiresIn: '10m' })
+        verifyEmail(token, email); //send email here
+        newUser.token = token;
+
         await newUser.save();
         res.status(201).json({
             success: true,
