@@ -2,6 +2,7 @@ import { User } from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { verifyEmail } from "../emailVerify/verifyEmail.js";
+import { Session } from "../models/sessionModel.js";
 
 export const register = async (req, res) => {
     try {
@@ -45,6 +46,168 @@ export const register = async (req, res) => {
         res.status(500).json({
             success: false,
             message: err.message
+        })
+    }
+}
+
+export const verify = async (req, res) => {
+    try {
+        const authHeader = req.headers.authorization
+        if (!authHeader || !authHeader.startsWith("Bearer ")) {
+            res.status(400).json({
+                success: "false",
+                message: "Authorization token is missing or invalid"
+            })
+        }
+        const token = authHeader.split(" ")[1] //[Bearer, fasdajkfhdfhash]
+
+        let decoded
+        try {
+            decoded = jwt.verify(token, process.env.SECRET_KEY)
+
+        } catch (error) {
+            if (error.name === "TokenExpiredError") {
+                res.status(400).json({
+                    success: "false",
+                    message: "The registration token has expired"
+                })
+            }
+            return res.status(400).json({
+                success: "false",
+                message: "Token verification failed"
+            })
+        }
+        const user = await User.findById(decoded.id)
+        if (!user) {
+            res.status(400).json({
+                success: "false",
+                message: "user not found"
+            })
+        }
+        user.token = null
+        user.isVerified = true;
+        await user.save();
+
+        return res.status(200).json({
+            success: "true",
+            message: "Email verified succesfully"
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: "false",
+            message: error.message
+        })
+    }
+}
+
+export const reVerify = async (req, res) => {
+    try {
+        const { email } = req.body;
+        const user = await User.findOne({ email });
+        if (!user) {
+            res.status(400).json({
+                success: false,
+                message: 'User not found '
+            })
+        }
+
+        const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: '10m' })
+        verifyEmail(token, email); //send email here
+        user.token = token;
+        await user.save()
+        return res.status(200).json({
+            success: "true",
+            message: "Verificatoin email sent again succesfully",
+            token: user.token
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            success: "false",
+            message: error.message
+        })
+    }
+}
+
+export const login = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            res.status(400).json({
+                success: false,
+                message: 'All fiels are required'
+            })
+        }
+
+        const existingUser = await User.findOne({ email })
+        if (!existingUser) {
+            res.status(400).json({
+                success: false,
+                message: "User not found"
+            })
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, existingUser.password)
+        if (!isPasswordValid) {
+            res.status(400).json({
+                success: false,
+                message: "Invalid credentials"
+            })
+        }
+
+        if (existingUser.isVerified === false) {
+
+            res.status(400).json({
+                success: false,
+                message: "verify your account than login"
+            })
+        }
+
+        const accessToken = jwt.sign({ id: existingUser._id }, process.env.SECRET_KEY, { expiresIn: '10d' })
+        const requestToken = jwt.sign({ id: existingUser._id }, process.env.SECRET_KEY, { expiresIn: '10d' })
+
+        existingUser.isLoggedin = true;
+        await existingUser.save();
+
+        //check for existing session and delete it 
+        const existingSession = await Session.findOne({ userId: existingUser._id });
+        if (existingSession) {
+            await Session.deleteOne({
+                userId: existingSession._id
+            })
+        }
+        //create a new session
+        await Session.create({ userId: existingUser._id })
+        return res.status(200).json({
+            success: true,
+            message: `Welcome back ${existingUser.firstName}`,
+            user: existingUser,
+            accessToken,
+            requestToken
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        })
+    }
+}
+
+export const logout = async (req, res) => {
+    try {
+        const userId = req.id
+        await Session.deleteMany({ userId: userId })
+        await User.findByIdAndUpdate(userId, { isLoggedin: false })
+        return res.status(200).json({
+            success: true,
+            message: "logout succesfully"
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
         })
     }
 }
