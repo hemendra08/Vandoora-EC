@@ -37,14 +37,14 @@ export const register = async (req, res) => {
         newUser.token = token;
 
         await newUser.save();
-        res.status(201).json({
+        return res.status(201).json({
             success: true,
-            messsage: 'User registered succesfully',
+            message: 'User registered succesfully',
             user: newUser
         })
 
     } catch (err) {
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: err.message
         })
