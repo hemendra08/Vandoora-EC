@@ -5,6 +5,8 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import Verify from "./pages/verify";
+import VerifyEmail from "./pages/verifyEmail";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,22 @@ const router = createBrowserRouter([
     element: (
       <>
         <Login />
+      </>
+    ),
+  },
+  {
+    path: "/verify",
+    element: (
+      <>
+        <Verify />
+      </>
+    ),
+  },
+  {
+    path: "/verify/:token",
+    element: (
+      <>
+        <VerifyEmail />
       </>
     ),
   },

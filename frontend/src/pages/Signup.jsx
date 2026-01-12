@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
@@ -40,6 +40,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
+    setLoading(true);
 
     try {
       const res = await axios.post(
@@ -59,6 +60,8 @@ const Signup = () => {
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -154,7 +157,14 @@ const Signup = () => {
               type="submit"
               className="w-full cursor-pointer"
             >
-              Signup
+              {loading ? (
+                <>
+                  <Loader className="h-4 w-4 animate-spin mr-2" />
+                  Please wait
+                </>
+              ) : (
+                "Signup"
+              )}
             </Button>
             <p className="text-center text-gray-500">
               Already have an account?{" "}

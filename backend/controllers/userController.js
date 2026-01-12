@@ -17,7 +17,7 @@ export const register = async (req, res) => {
 
         const user = await User.findOne({ email });
         if (user) {
-            res.status(400).json({
+            return res.status(400).json({
                 success: false,
                 message: 'User already exists'
             })
@@ -55,7 +55,7 @@ export const verify = async (req, res) => {
     try {
         const authHeader = req.headers.authorization
         if (!authHeader || !authHeader.startsWith("Bearer ")) {
-            res.status(400).json({
+            return res.status(400).json({
                 success: "false",
                 message: "Authorization token is missing or invalid"
             })
