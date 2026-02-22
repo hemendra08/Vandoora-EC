@@ -203,7 +203,7 @@ export const logout = async (req, res) => {
         await User.findByIdAndUpdate(userId, { isLoggedin: false })
         return res.status(200).json({
             success: true,
-            message: "logout succesfully"
+            message: "user logout succesfully"
         })
     } catch (error) {
         return res.status(500).json({
