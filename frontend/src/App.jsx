@@ -1,53 +1,53 @@
 import React from "react";
-import { Button } from "./components/ui/button";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Verify from "./pages/verify";
 import VerifyEmail from "./pages/verifyEmail";
+import Shop from "./pages/Shop";
+import ProductDetails from "./pages/ProductDetails";
+import Cart from "./pages/Cart";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <>
-        <Navbar /> <Home />
-      </>
-    ),
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/products",
+        element: <Shop />,
+      },
+      {
+        path: "/product/:id",
+        element: <ProductDetails />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+    ],
   },
   {
     path: "/signup",
-    element: (
-      <>
-        <Signup />
-      </>
-    ),
+    element: <Signup />,
   },
   {
     path: "/login",
-    element: (
-      <>
-        <Login />
-      </>
-    ),
+    element: <Login />,
   },
   {
     path: "/verify",
-    element: (
-      <>
-        <Verify />
-      </>
-    ),
+    element: <Verify />,
   },
   {
     path: "/verify/:token",
-    element: (
-      <>
-        <VerifyEmail />
-      </>
-    ),
+    element: <VerifyEmail />,
   },
 ]);
 

@@ -9,7 +9,7 @@ export const register = async (req, res) => {
     try {
         const { firstName, lastName, email, password } = req.body;
         if (!firstName || !lastName || !email || !password) {
-            res.status(400).json({
+            return res.status(400).json({
                 success: false,
                 message: 'All fields are required'
             })
@@ -68,7 +68,7 @@ export const verify = async (req, res) => {
 
         } catch (error) {
             if (error.name === "TokenExpiredError") {
-                res.status(400).json({
+                return res.status(400).json({
                     success: "false",
                     message: "The registration token has expired"
                 })
@@ -80,7 +80,7 @@ export const verify = async (req, res) => {
         }
         const user = await User.findById(decoded.id)
         if (!user) {
-            res.status(400).json({
+            return res.status(400).json({
                 success: "false",
                 message: "user not found"
             })
@@ -107,7 +107,7 @@ export const reVerify = async (req, res) => {
         const { email } = req.body;
         const user = await User.findOne({ email });
         if (!user) {
-            res.status(400).json({
+            return res.status(400).json({
                 success: false,
                 message: 'User not found '
             })
@@ -136,15 +136,15 @@ export const login = async (req, res) => {
         const { email, password } = req.body;
 
         if (!email || !password) {
-            res.status(400).json({
+            return res.status(400).json({
                 success: false,
-                message: 'All fiels are required'
+                message: 'All fields are required'
             })
         }
 
         const existingUser = await User.findOne({ email })
         if (!existingUser) {
-            res.status(400).json({
+            return res.status(400).json({
                 success: false,
                 message: "User not found"
             })
@@ -152,15 +152,14 @@ export const login = async (req, res) => {
 
         const isPasswordValid = await bcrypt.compare(password, existingUser.password)
         if (!isPasswordValid) {
-            res.status(400).json({
+            return res.status(400).json({
                 success: false,
                 message: "Invalid credentials"
             })
         }
 
         if (existingUser.isVerified === false) {
-
-            res.status(400).json({
+            return res.status(400).json({
                 success: false,
                 message: "verify your account than login"
             })
