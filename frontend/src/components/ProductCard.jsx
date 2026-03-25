@@ -23,7 +23,7 @@ const ProductCard = ({ product, index = 0 }) => {
   const imageUrl =
     product.images && product.images.length > 0
       ? product.images[0]
-      : "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80";
+      : "/images/watch.jpg";
 
   return (
     <Link 

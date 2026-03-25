@@ -8,10 +8,10 @@ import { Button } from "../components/ui/button";
 import { ShoppingCart, ArrowLeft, Star, StarHalf, ShieldCheck, Truck, RotateCcw } from "lucide-react";
 
 const dummyProducts = [
-  { id: "1", name: "Minimalist Watch", description: "A sleek, modern timepiece perfect for any occasion.", price: 199.99, category: "Accessories", images: ["https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80"], ratings: 4.5, numOfReviews: 12 },
-  { id: "2", name: "Wireless Earbuds", description: "High-quality sound with active noise cancellation.", price: 129.5, category: "Electronics", images: ["https://images.unsplash.com/photo-1606220588913-b3a58ce681ce?w=500&q=80"], ratings: 4.8, numOfReviews: 56 },
-  { id: "3", name: "Classic Leather Bag", description: "Handcrafted genuine leather messenger bag.", price: 89.0, category: "Fashion", images: ["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80"], ratings: 4.2, numOfReviews: 8 },
-  { id: "4", name: "Smart Home Hub", description: "Control all your devices from one central location.", price: 149.99, category: "Electronics", images: ["https://images.unsplash.com/photo-1558089687-f282ffcbc126?w=500&q=80"], ratings: 4.6, numOfReviews: 34 },
+  { id: "1", name: "Minimalist Watch", description: "A sleek, modern timepiece perfect for any occasion.", price: 199.99, category: "Accessories", images: ["/images/watch.jpg"], ratings: 4.5, numOfReviews: 12 },
+  { id: "2", name: "Wireless Earbuds", description: "High-quality sound with active noise cancellation.", price: 129.5, category: "Electronics", images: ["/images/earbuds.jpg"], ratings: 4.8, numOfReviews: 56 },
+  { id: "3", name: "Classic Leather Bag", description: "Handcrafted genuine leather messenger bag.", price: 89.0, category: "Fashion", images: ["/images/bag.jpg"], ratings: 4.2, numOfReviews: 8 },
+  { id: "4", name: "Smart Home Hub", description: "Control all your devices from one central location.", price: 149.99, category: "Electronics", images: ["/images/smarthub.jpg"], ratings: 4.6, numOfReviews: 34 },
 ];
 
 const ProductDetails = () => {
@@ -68,7 +68,7 @@ const ProductDetails = () => {
 
   const imageUrl = product.images && product.images.length > 0
     ? product.images[0]
-    : "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80";
+    : "/images/watch.jpg";
 
   return (
     <div className="bg-background text-foreground pb-24 pt-8 animate-fade-in-up">

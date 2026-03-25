@@ -38,7 +38,7 @@ const Signup = () => {
       {/* Left Branding Panel */}
       <div className="hidden lg:flex w-1/2 bg-zinc-950 relative items-center justify-center p-12 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="absolute top-0 left-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center opacity-30 mix-blend-overlay"></div>
+          <div className="absolute top-0 left-0 w-full h-full bg-[url('/images/signup-bg.jpg')] bg-cover bg-center opacity-30 mix-blend-overlay"></div>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-indigo-600/30 blur-[150px] rounded-full"></div>
         </div>
         

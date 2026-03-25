@@ -65,7 +65,7 @@ const Cart = () => {
                   {cart.cartItems.map((cartItem) => {
                     const imageUrl = cartItem.images && cartItem.images.length > 0
                       ? cartItem.images[0]
-                      : "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80";
+                      : "/images/watch.jpg";
 
                     return (
                       <div key={cartItem._id || cartItem.id} className="p-6 grid grid-cols-1 md:grid-cols-12 items-center gap-6 group hover:bg-muted/10 transition-colors">

@@ -11,7 +11,7 @@ const dummyProducts = [
     description: "A sleek, modern timepiece perfect for any occasion.",
     price: 199.99,
     category: "Accessories",
-    images: ["https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80"],
+    images: ["/images/watch.jpg"],
   },
   {
     id: "2",
@@ -19,7 +19,7 @@ const dummyProducts = [
     description: "High-quality sound with active noise cancellation.",
     price: 129.5,
     category: "Electronics",
-    images: ["https://images.unsplash.com/photo-1606220588913-b3a58ce681ce?w=500&q=80"],
+    images: ["/images/earbuds.jpg"],
   },
   {
     id: "3",
@@ -27,7 +27,7 @@ const dummyProducts = [
     description: "Handcrafted genuine leather messenger bag.",
     price: 89.0,
     category: "Fashion",
-    images: ["https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&q=80"],
+    images: ["/images/bag.jpg"],
   },
   {
     id: "4",
@@ -35,7 +35,7 @@ const dummyProducts = [
     description: "Control all your devices from one central location.",
     price: 149.99,
     category: "Electronics",
-    images: ["https://images.unsplash.com/photo-1558089687-f282ffcbc126?w=500&q=80"],
+    images: ["/images/smarthub.jpg"],
   },
 ];
 

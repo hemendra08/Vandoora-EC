@@ -53,7 +53,7 @@ const Hero = () => {
             <div className="glass-card p-6 rounded-3xl w-full max-w-md relative z-20 hover:-translate-y-2 transition-transform duration-500">
               <div className="aspect-[4/3] rounded-2xl bg-gradient-to-tr from-zinc-100 to-white dark:from-zinc-900 dark:to-zinc-800 flex items-center justify-center mb-6 overflow-hidden relative shadow-inner">
                 {/* Fallback image if no real product images are handy, using an abstract tech shape or icon */}
-                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1498049794561-7780e7231661?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center opacity-80 mix-blend-overlay dark:opacity-40"></div>
+                <div className="absolute inset-0 bg-[url('/images/macbook.jpg')] bg-cover bg-center rounded-2xl"></div>
                 <div className="w-32 h-32 rounded-full bg-violet-500/20 blur-3xl absolute"></div>
               </div>
               <h3 className="text-xl font-bold text-foreground">MacBook Pro 16"</h3>
